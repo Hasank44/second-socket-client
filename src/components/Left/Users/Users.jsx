@@ -1,20 +1,10 @@
 import React, { useContext, useState } from "react";
 import { ChatUserContext } from "../../../Context/ChatUserProvider";
+import { DataContext } from "../../../Context/DataProvider";
 
 const Users = () => {
     const { setChatUsers } = useContext(ChatUserContext);
-    const users = [
-        { _id: 1, name: "John Doe", avatar: "https://randomuser.me/api/portraits/men/1.jpg", online: true },
-        { _id: 2, name: "Jane Smith", avatar: "https://randomuser.me/api/portraits/women/2.jpg", online: false },
-        { _id: 3, name: "Bob Johnson", avatar: "https://randomuser.me/api/portraits/men/3.jpg", online: true },
-        { _id: 4, name: "Alice Williams", avatar: "https://randomuser.me/api/portraits/women/4.jpg", online: false },
-        { _id: 5, name: "Charlie Brown", avatar: "https://randomuser.me/api/portraits/men/5.jpg", online: true },
-        { _id: 6, name: "Emma Stone", avatar: "https://randomuser.me/api/portraits/women/6.jpg", online: false },
-        { _id: 7, name: "Sophia Turner", avatar: "https://randomuser.me/api/portraits/women/7.jpg", online: false },
-        { _id: 8, name: "David Wilson", avatar: "https://randomuser.me/api/portraits/men/8.jpg", online: true },
-        { _id: 9, name: "Eva Davis", avatar: "https://randomuser.me/api/portraits/women/9.jpg", online: false },
-        { _id: 10, name: "Frank Miller", avatar: "https://randomuser.me/api/portraits/men/10.jpg", online: true },
-    ];
+    const { filteredUsers } = useContext(DataContext);
 
     const [selectedUser, setSelectedUser] = useState(null);
 
@@ -22,11 +12,13 @@ const Users = () => {
         setSelectedUser(user);
         setChatUsers(user);
     };
+
     return (
-        <div className="h-[560px] bg-[#02020e] rounded-xl flex flex-col py-4">
+        <div className="h-[550px] bg-[#02020e] rounded-xl flex flex-col pt-3">
             <div className="flex-1 overflow-y-auto px-2 space-y-1">
-                {users.map(user => (
+                {filteredUsers.map(user => (
                     <div
+                        title={user.name}
                         key={user._id}
                         onClick={() => select(user)}
                         className={`flex items-center gap-3 px-4 py-2 rounded-lg cursor-pointer transition
